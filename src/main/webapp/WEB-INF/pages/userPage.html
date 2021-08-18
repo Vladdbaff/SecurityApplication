@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<h2>User</h2>
+<div>Name</div>
+<div th:text="${user.getName()}"></div>
+<br/>
+<div>lastName</div>
+<div th:text="${user.getLastName()}"></div>
+<br/>
+<div th:text="${user.getEmail()}"></div>
+
+</body>
+</html>
