@@ -4,6 +4,7 @@ import mvc_security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,8 @@ import java.io.IOException;
 import java.util.Set;
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
-
+    @Autowired
+    private UserDetailsService detailsService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
@@ -24,7 +26,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/admin");
         } else if (roles.contains("ROLE_USER")) {
-            httpServletResponse.sendRedirect("/user");
+            long id = ((User) (detailsService.loadUserByUsername(authentication.getName()))).getId();
+            httpServletResponse.sendRedirect("/users/" + id);
         } else {
             httpServletResponse.sendRedirect("/login");
         }

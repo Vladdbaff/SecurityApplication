@@ -22,14 +22,14 @@
     <label for="password">Password</label>
     <input type="text" th:field="*{password}" id="password"/>
     <br/>
-    <label for="role">Role:</label>
-    <select class="form-control" multiple name="roles" id="role" size="2">
-        <option selected name="ROLE_USER" value="ROLE_USER">USER</option>
-        <option name="ROLE_ADMIN" value="ROLE_ADMIN">ADMIN</option>
-    </select>
-
-    <br/>
+    <div><label for="roleAdmin" th:text="ADMIN"></label>
+        <input type="checkbox" name="roleAdmin" id="roleAdmin" th:checked="${roleAdmin}"/>
+    </div>
+    <br>
+    <br>
     <input type="submit" value="Create"/>
+    <br/>
+    <input type="submit" value="Create!"/>
 
 
 </form>

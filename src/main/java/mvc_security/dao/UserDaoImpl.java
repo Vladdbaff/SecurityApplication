@@ -1,6 +1,8 @@
 package mvc_security.dao;
 
+import mvc_security.model.Role;
 import mvc_security.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -14,6 +16,9 @@ public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     @Transactional

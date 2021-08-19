@@ -6,11 +6,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
@@ -18,12 +16,12 @@ public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+
     @Override
-    @Transactional
-    public Set<Role> getRolesByName(String[] roles) {
-        List<String> role = Arrays.asList(roles);
-        return new HashSet<Role>(entityManager.createQuery("select r from Role r where r.role in (:roleSet)")
-                .setParameter("roleSet", role).getResultList());
+    public List<Role> getAllRoles() {
+        TypedQuery<Role> query = entityManager.createQuery("select r from Role r", Role.class);
+        return query.getResultList();
     }
+
 
 }

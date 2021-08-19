@@ -29,22 +29,32 @@ public class AdminController {
 
     @GetMapping("/new")
     public String newUser(Model model) {
+        String roleAdmin = null;
         model.addAttribute("user", new User());
+        model.addAttribute("roles", roleService.getAllRoles());
+        model.addAttribute("roleAdmin", roleAdmin);
         return "newUser";
     }
 
-    @PostMapping()
-    public String openCreate(@ModelAttribute("user") User user) {
-        return "newUser";
-    }
 
-    @PostMapping("/new")
-    public String add(@ModelAttribute("user") User user,
-                      @RequestParam(value = "roles", required = false) String[] roles) {
-        user.setRoles(roleService.getRolesByName(roles));
+
+
+
+    @PostMapping
+    public String createUser(
+            @ModelAttribute(value = "roleAdmin") String roleAdmin,
+            @ModelAttribute("user") User user) {
+
+        Set<Role> setRole = new HashSet<>();
+        if (roleAdmin.contains("on")) {
+            setRole.add(roleService.getAllRoles().get(1));
+            setRole.add(roleService.getAllRoles().get(0));
+        } else {
+            setRole.add(roleService.getAllRoles().get(1));
+        }
+        user.setRoles(setRole);
         userService.saveUser(user);
         return "redirect:/admin";
-
     }
 
     @PatchMapping("/{id}")
