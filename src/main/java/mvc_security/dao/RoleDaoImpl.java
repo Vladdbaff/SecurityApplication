@@ -7,7 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
@@ -17,8 +20,10 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     @Transactional
-    public List<Role> getRoles() {
-        List<Role> roles = entityManager.createQuery("select r from Role r", Role.class).getResultList();
-        return roles;
+    public Set<Role> getRolesByName(String[] roles) {
+        List<String> role = Arrays.asList(roles);
+        return new HashSet<Role>(entityManager.createQuery("select r from Role r where r.role in (:roleSet)")
+                .setParameter("roleSet", role).getResultList());
     }
+
 }

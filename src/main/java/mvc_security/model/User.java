@@ -21,10 +21,13 @@ public class User implements UserDetails {
 
     @Column(name = "lastName")
     private String lastName;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "password")
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -71,7 +74,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles;
     }
 
     public String getPassword() {

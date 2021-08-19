@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -16,7 +17,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     @Transactional
-    public List<Role> getRoles() {
-        return roleDao.getRoles();
+    public Set<Role> getRolesByName(String[] name) {
+        return roleDao.getRolesByName(name);
     }
 }

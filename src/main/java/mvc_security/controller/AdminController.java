@@ -24,39 +24,27 @@ public class AdminController {
     @GetMapping()
     public String mainPage(Model model){
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("roles", roleService.getRoles());
         return "main";
     }
 
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("role", roleService.getRoles());
         return "newUser";
     }
 
     @PostMapping()
+    public String openCreate(@ModelAttribute("user") User user) {
+        return "newUser";
+    }
+
+    @PostMapping("/new")
     public String add(@ModelAttribute("user") User user,
-                      @RequestParam(value = "select_roles", required = false) String[] roles) {
-        System.out.println(roles[0]);
-            Set<Role> roles1 = new HashSet<>();
-            for (String s : roles) {
-                Role role = new Role();
-                role.setRole(s);
-                roles1.add(role);
-            }
-            user.setRoles(roles1);
-            userService.saveUser(user);
-            return "redirect:/admin";
-            /*Set<Role> role = new HashSet<>();
-            for(String r: roles) {
-                if (r.equals("ROLE_ADMIN")) {
-                    role.add(roleService.getRoles().get(0));
-                }
-            }
-            user.setRoles(role);
-            userService.saveUser(user);
-            return "main";*/
+                      @RequestParam(value = "roles", required = false) String[] roles) {
+        user.setRoles(roleService.getRolesByName(roles));
+        userService.saveUser(user);
+        return "redirect:/admin";
+
     }
 
     @PatchMapping("/{id}")

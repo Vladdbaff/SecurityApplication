@@ -60,4 +60,11 @@ public class UserDaoImpl implements UserDao {
         User user = (User) query.getSingleResult();
         return entityManager.find(User.class, user.getId());
     }
+
+    @Override
+    public String getPassword(User user) {
+        return entityManager.find(User.class, user.getId()).getPassword();
+    }
+
+
 }

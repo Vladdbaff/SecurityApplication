@@ -1,10 +1,14 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Create new user</title>
 </head>
 <body>
+<div style="text-align: center;">
+
+<h1>Create user</h1>
 <form th:method="POST" th:action="@{/admin}" th:object="${user}">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -15,19 +19,20 @@
     <label for="email">Email</label>
     <input type="text" th:field="*{email}" id="email"/>
     <br/>
-    <lable for="password">Password</lable>
+    <label for="password">Password</label>
     <input type="text" th:field="*{password}" id="password"/>
     <br/>
-    <label>Role:
-        <select multiple size="2" name="select_role" class="form-control" id="exampleFormControlSelect3">
-            <option th:each="role : ${role}" th:value="${role.getAuthority()}"
-                    th:text="${role.getAuthority() == 'ROLE_ADMIN'} ? 'ROLE_ADMIN' : 'ROLE_USER'"></option>
-        </select>
-        <br/>
-        <input type="submit" value="Create"/>
-    </label>
+    <label for="role">Role:</label>
+    <select class="form-control" multiple name="roles" id="role" size="2">
+        <option selected name="ROLE_USER" value="ROLE_USER">USER</option>
+        <option name="ROLE_ADMIN" value="ROLE_ADMIN">ADMIN</option>
+    </select>
+
+    <br/>
+    <input type="submit" value="Create"/>
+
 
 </form>
-
+</div>
 </body>
 </html>
