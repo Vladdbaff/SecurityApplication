@@ -15,6 +15,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
+    //убрал двустароннюю связь
 
     public Role() {}
 
