@@ -31,7 +31,7 @@ public class AdminController {
     public String newUser(Model model) {
         String roleAdmin = null;
         model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.getAllRoles());
+        //model.addAttribute("roles", roleService.getAllRoles());
         model.addAttribute("roleAdmin", roleAdmin);
         return "newUser";
     }
@@ -47,10 +47,10 @@ public class AdminController {
 
         Set<Role> setRole = new HashSet<>();
         if (roleAdmin.contains("on")) {
-            setRole.add(roleService.getAllRoles().get(1));
-            setRole.add(roleService.getAllRoles().get(0));
+            setRole.add(roleService.getRoleById(1));
+            setRole.add(roleService.getRoleById(2));
         } else {
-            setRole.add(roleService.getAllRoles().get(1));
+            setRole.add(roleService.getRoleById(2));
         }
         user.setRoles(setRole);
         userService.saveUser(user);
