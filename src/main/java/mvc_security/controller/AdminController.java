@@ -28,31 +28,14 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String newUser(Model model) {
-        String roleAdmin = null;
-        model.addAttribute("user", new User());
-        //model.addAttribute("roles", roleService.getAllRoles());
-        model.addAttribute("roleAdmin", roleAdmin);
+    public String newUser(@ModelAttribute("user") User user){
         return "newUser";
     }
 
-
-
-
-
-    @PostMapping
-    public String createUser(
-            @ModelAttribute(value = "roleAdmin") String roleAdmin,
-            @ModelAttribute("user") User user) {
-
-        Set<Role> setRole = new HashSet<>();
-        if (roleAdmin.contains("on")) {
-            setRole.add(roleService.getRoleById(1));
-            setRole.add(roleService.getRoleById(2));
-        } else {
-            setRole.add(roleService.getRoleById(2));
-        }
-        user.setRoles(setRole);
+    @PostMapping()
+    public String create(@ModelAttribute("user") User user,
+                         @RequestParam(name = "listRoles", required = false) String[] roles) {
+        user.setRoles(roleService.getRoleByName(roles));
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -80,8 +63,5 @@ public class AdminController {
         model.addAttribute("user", userService.getUserById(id));
         return "userPage";
     }
-
-
-
 
 }

@@ -1,5 +1,7 @@
 package mvc_security.model;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ public class User implements UserDetails {
     private long id;
 
     @Column(name = "name")
+    @NotEmpty(message = "name should not be empty")
+    @Size(min = 2, max = 30)
     private String name;
 
     @Column(name = "lastName")
