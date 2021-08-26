@@ -15,8 +15,12 @@ import java.io.IOException;
 import java.util.Set;
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
-    @Autowired
+
     private UserDetailsService detailsService;
+
+    public LoginSuccessHandler(UserDetailsService detailsService) {
+        this.detailsService = detailsService;
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,

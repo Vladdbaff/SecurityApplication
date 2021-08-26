@@ -17,8 +17,12 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
+
     private RoleDao roleDao;
+
+    public UserDaoImpl(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
 
     @Override
     @Transactional

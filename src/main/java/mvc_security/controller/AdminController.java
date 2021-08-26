@@ -16,15 +16,22 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
+
     private UserService userService;
-    @Autowired
+
     private RoleService roleService;
+
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
+
+    public AdminController(){}
 
     @GetMapping()
     public String mainPage(Model model){
         model.addAttribute("users", userService.getAllUsers());
-        return "main";
+        return "/main";
     }
 
     @GetMapping("/new")

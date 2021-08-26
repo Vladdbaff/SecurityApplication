@@ -17,8 +17,11 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
-    @Autowired
     private ApplicationContext applicationContext;
+
+    public SpringConfig(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     @Bean
     public SpringResourceTemplateResolver getTemplateResolver() {
