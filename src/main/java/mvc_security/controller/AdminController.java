@@ -17,21 +17,21 @@ import java.util.Set;
 public class AdminController {
 
 
-    private UserService userService;
+    private final UserService userService;
 
-    private RoleService roleService;
+    private final RoleService roleService;
 
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
-    public AdminController(){}
+
 
     @GetMapping()
     public String mainPage(Model model){
         model.addAttribute("users", userService.getAllUsers());
-        return "/main";
+        return "main";
     }
 
     @GetMapping("/new")

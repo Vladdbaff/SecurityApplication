@@ -25,8 +25,12 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DataBaseConfig {
 
-    @Autowired
-    private Environment env;
+
+    private final Environment env;
+
+    public DataBaseConfig(Environment env) {
+        this.env = env;
+    }
 
 
     public JpaVendorAdapter getVendorAdapter() {

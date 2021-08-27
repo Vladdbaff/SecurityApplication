@@ -2,6 +2,8 @@ package mvc_security.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -19,8 +21,6 @@ public class User implements UserDetails {
     private long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "name should not be empty")
-    @Size(min = 2, max = 30)
     private String name;
 
     @Column(name = "lastName")
@@ -36,6 +36,7 @@ public class User implements UserDetails {
     @JoinTable(name = "user_roles",
                 joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @Fetch(FetchMode.JOIN)
     private Set<Role> roles;
 
     public User() {}
