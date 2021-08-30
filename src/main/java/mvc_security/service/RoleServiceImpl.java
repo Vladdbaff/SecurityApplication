@@ -20,6 +20,7 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
+    @Transactional
     public Set<Role> getRoleByName(String[] name) {
         return roleDao.getRoleByName(name);
     }

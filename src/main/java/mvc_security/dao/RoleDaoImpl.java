@@ -17,6 +17,7 @@ public class RoleDaoImpl implements RoleDao {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Set<Role> getRoleByName(String[] name) {
         List<String> roles = Arrays.asList(name);
         return new HashSet<Role>(entityManager.createQuery("select r from Role r where r.role in  (:stringRoles)", Role.class)
